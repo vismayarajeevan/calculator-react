@@ -5,38 +5,28 @@ import './App.css'
 
 function App() {
 
-  // state for display
-  const [display, setDisplay] =useState('0')
-  // state for operator
-  const [operator, setOperator] =useState(null)
   
-  // for clear state
-  const [preValue, setPreValue] =useState(null)
 
-  const buttons = [
-    ['AC', 'DEL', '/'],
-    ['7', '8', '9', '*'],
-    ['4', '5', '6', '+'],
-    ['1', '2', '3', '-'],
-    ['0', '.', '='],
-  ];
+
   
  
+const [input, setInput] =useState('0')
 
-  // clear 
-  const handleClick =(value)=>{
-    if(value==='AC'){
-      setDisplay('0')
-      setOperator(null)
-      setPreValue(null)
-      return
-    }
-    if(value ==='DEL'){
-      setDisplay(0)
-      return
-    }
-    setDisplay((prev) => (prev === '0' ? value : prev + value));
-  }
+const display =(content)=>{
+  setInput(prev=>prev =='0' ?content:prev+content)
+}
+
+const calClear =()=>{
+  setInput('0')
+}
+
+const calEqual =()=>{
+  setInput(eval(input))
+}
+
+const removeLastDigit=()=>{
+  setInput(prev=>prev.length ===1 ?'0':prev.slice(0,-1))
+}
 
 
   return (
@@ -48,20 +38,46 @@ function App() {
         <div className='container rounded p-3' style={{backgroundColor:'white', height:'auto'}}>
            
            {/* 1st row */}
-          <div className='rounded pt-4 pe-3 ' style={{backgroundColor:'black', height:'80px', width:'300px', color:'white', textAlign:'end', fontSize:'35px'}}>{display}</div>
-         
+         <input type="text" value={input}  className='rounded pt-4 pe-3 ' style={{backgroundColor:'black', height:'80px', width:'300px', color:'white', textAlign:'end', fontSize:'35px'}}/>
 
-        {buttons.map((row, rowIndex)=>(
-          <div key={rowIndex} className='d-flex align-items-center justify-content-evenly gap-1 pt-3' style={{backgroundColor:"white"}} >
-            {row.map((btn)=>(
-               <button key={btn} onClick={() => handleClick(btn)}
-               style={{ width: btn === 'AC' || btn === 'DEL' || btn === 'DEL' ||btn === '/' || btn === '0' || btn === '.' ||  btn === '=' ?'95px':'67px', height: '40px', gap:'5px',fontSize: '18px',backgroundColor:'grey',color: 'white',border: 'none',borderRadius:'5px',
-                 cursor: 'pointer', }}>
-               {btn}
-             </button>
-            ))}
-            </div>
-        ))}
+                 {/* 2nd row */}
+                 <div className='d-flex align-items-center justify-content-evenly gap-1 pt-3' style={{backgroundColor:"white"}}>
+            <div onClick={calClear} className='buttons rounded text-center p-3 shadow' style={{width:'92px', color:'white', fontWeight:'600'}}>AC</div>
+            <div onClick={removeLastDigit} className='buttons rounded text-center p-3 shadow' style={{width:'92px',  color:'white', fontWeight:'600'}}>DEL</div>
+            <div onClick={()=>display('/')} className='buttons rounded text-center p-3 shadow' style={{width:'92px', color:'white', fontWeight:'600'}}>/</div>
+          </div>
+  
+          {/* 3rd row */}
+          <div className='d-flex align-items-center justify-content-evenly gap-1 pt-3' style={{backgroundColor:"white"}}>
+            <div onClick={()=>display('7')} className='buttons rounded text-center p-3 shadow' style={{width:'64px',  color:'white', fontWeight:'600'}}>7</div>
+            <div onClick={()=>display('8')} className='buttons rounded text-center p-3 shadow' style={{width:'64px',  color:'white', fontWeight:'600'}}>8</div>
+            <div onClick={()=>display('9')} className='buttons rounded text-center p-3 shadow' style={{width:'64px', color:'white', fontWeight:'600'}}>9</div>
+            <div onClick={()=>display('*')} className='buttons rounded text-center p-3 shadow' style={{width:'64px', color:'white', fontWeight:'600'}}>*</div>
+          </div>
+
+          {/* 4th row */}
+          <div className='d-flex align-items-center justify-content-evenly gap-1 pt-3' style={{backgroundColor:"white"}}>
+            <div onClick={()=>display('4')} className='buttons rounded text-center p-3 shadow' style={{width:'64px',  color:'white', fontWeight:'600'}}>4</div>
+            <div onClick={()=>display('5')} className='buttons rounded text-center p-3 shadow' style={{width:'64px',  color:'white', fontWeight:'600'}}>5</div>
+            <div onClick={()=>display('6')} className='buttons rounded text-center p-3 shadow' style={{width:'64px', color:'white', fontWeight:'600'}}>6</div>
+            <div onClick={()=>display('+')} className='buttons rounded text-center p-3 shadow' style={{width:'64px', color:'white', fontWeight:'600'}}>+</div>
+          </div>
+
+          {/* 5th row */}
+          <div className='d-flex align-items-center justify-content-evenly gap-1 pt-3' style={{backgroundColor:"white"}}>
+            <div className='buttons rounded text-center p-3 shadow' style={{width:'64px',  color:'white', fontWeight:'600'}}>1</div>
+            <div onClick={()=>display('2')} className='buttons rounded text-center p-3 shadow' style={{width:'64px',  color:'white', fontWeight:'600'}}>2</div>
+            <div onClick={()=>display('3')} className='buttons rounded text-center p-3 shadow' style={{width:'64px', color:'white', fontWeight:'600'}}>3</div>
+            <div onClick={()=>display('-')} className='buttons rounded text-center p-3 shadow' style={{width:'64px', color:'white', fontWeight:'600'}}>-</div>
+          </div>
+
+          {/* 4th row */}
+          <div className='d-flex align-items-center justify-content-evenly gap-1 pt-3' style={{backgroundColor:"white"}}>
+            <div onClick={()=>display('0')} className='buttons rounded text-center p-3 shadow' style={{width:'64px', color:'white', fontWeight:'600'}}>0</div>
+            <div onClick={()=>display('.')} className='buttons rounded text-center p-3 shadow' style={{width:'64px', color:'white', fontWeight:'600'}}>.</div>
+            <div onClick={calEqual} className='buttons rounded text-center p-3 shadow' style={{width:'129px', color:'white', fontWeight:'600'}}>=</div>
+           
+          </div>
 
 
         </div>
