@@ -1,0 +1,13 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #ff7e5f ;
+}
+.buttons{
+  background-color:#808080;
+  cursor: pointer;
+}
+.buttons:hover{
+  background-color: black;
+}
